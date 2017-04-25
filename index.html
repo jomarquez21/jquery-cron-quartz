@@ -43,10 +43,12 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script type="text/javascript" src="src/jquery-cron-quartz.js"></script>
+        <script type="text/javascript" src="src/i18n/jquery-cron-quartz-zh_CN.js"></script>
         <script type="text/javascript">
             $(function() {
                $('#example1-cron').cronBuilder({
-                   selectorLabel: "Select time period:  ",
+                   selectorLabel: "选择时间段:  ",
+                   language: "zh_CN",
                    onChange: function(expression) {
                        $('#example1-result').text(expression);
                    }
@@ -102,9 +104,10 @@ $(function() {
 
     // Initialize DOM with cron builder with options
     $('#cron').cronBuilder({
-       selectorLabel: "Select time period: ",
+       selectorLabel: "选择时间段:  ",
+       language: "zh_CN",
        onChange: function(expression) {
-           $('#result').text(expression);
+           $('#example1-result').text(expression);
        }
     });
 });</pre>

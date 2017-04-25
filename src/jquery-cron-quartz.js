@@ -4,64 +4,59 @@
 ;(function($) {
     "use strict";
 
-    var cronInputs={
-        period: '<div class="cron-select-period"><label></label><select class="cron-period-select"></select></div>',
-        startTime: '<div class="cron-input cron-start-time">Start time <select class="cron-clock-hour"></select>:<select class="cron-clock-minute"></select>:<select class="cron-clock-second"></select></div>',
-        container: '<div class="cron-input"></div>',
-        seconds: {
-            tag: 'cron-seconds',
-            inputs: [ '<p>Every <select class="cron-seconds-select"></select> seconds(s)</p>' ]
-        },
-        minutes: {
-            tag: 'cron-minutes',
-            inputs: [ '<p>Every <select class="cron-minutes-select"></select> minutes(s)</p>' ]
-        },
-        hourly: {
-            tag: 'cron-hourly',
-            inputs: [ '<p><input type="radio" name="hourlyType" value="every"> Every <select class="cron-hourly-select"></select> hour(s)</p>',
-                '<p><input type="radio" name="hourlyType" value="clock"> Every day at <select class="cron-hourly-hour"></select>:<select class="cron-hourly-minute"></select>:<select class="cron-hourly-second"></select></p>']
-        },
-        daily: {
-            tag: 'cron-daily',
-            inputs: [ '<p><input type="radio" name="dailyType" value="every"> Every <select class="cron-daily-select"></select> day(s)</p>',
-                '<p><input type="radio" name="dailyType" value="clock"> Every week day</p>']
-        },
-        weekly: {
-            tag: 'cron-weekly',
-            inputs: [ '<p><input type="checkbox" name="dayOfWeekMon"> Monday  <input type="checkbox" name="dayOfWeekTue"> Tuesday  '+
+    var cronInputs = $.fn.cronInputs = {
+        'en': {
+            period: '<div class="cron-select-period"><label></label><select class="cron-period-select"></select></div>',
+            startTime: '<div class="cron-input cron-start-time">Start time <select class="cron-clock-hour"></select>:<select class="cron-clock-minute"></select>:<select class="cron-clock-second"></select></div>',
+            container: '<div class="cron-input"></div>',
+            seconds: {
+                tag: 'cron-seconds',
+                inputs: [ '<p>Every <select class="cron-seconds-select"></select> seconds(s)</p>' ]
+            },
+            minutes: {
+                tag: 'cron-minutes',
+                inputs: [ '<p>Every <select class="cron-minutes-select"></select> minutes(s)</p>' ]
+            },
+            hourly: {
+                tag: 'cron-hourly',
+                inputs: [ '<p><input type="radio" name="hourlyType" value="every"> Every <select class="cron-hourly-select"></select> hour(s)</p>',
+                    '<p><input type="radio" name="hourlyType" value="clock"> Every day at <select class="cron-hourly-hour"></select>:<select class="cron-hourly-minute"></select>:<select class="cron-hourly-second"></select></p>']
+            },
+            daily: {
+                tag: 'cron-daily',
+                inputs: [ '<p><input type="radio" name="dailyType" value="every"> Every <select class="cron-daily-select"></select> day(s)</p>',
+                    '<p><input type="radio" name="dailyType" value="clock"> Every week day</p>']
+            },
+            weekly: {
+                tag: 'cron-weekly',
+                inputs: [ '<p><input type="checkbox" name="dayOfWeekMon"> Monday  <input type="checkbox" name="dayOfWeekTue"> Tuesday  '+
                 '<input type="checkbox" name="dayOfWeekWed"> Wednesday  <input type="checkbox" name="dayOfWeekThu"> Thursday</p>',
-                '<p><input type="checkbox" name="dayOfWeekFri"> Friday  <input type="checkbox" name="dayOfWeekSat"> Saturday  '+
-                '<input type="checkbox" name="dayOfWeekSun"> Sunday</p>' ]
-        },
-        monthly: {
-            tag: 'cron-monthly',
-            inputs: [ '<p><input type="radio" name="monthlyType" value="byDay"> Day <select class="cron-monthly-day"></select> of every <select class="cron-monthly-month"></select> month(s)</p>',
-                '<p><input type="radio" name="monthlyType" value="byWeek"> The <select class="cron-monthly-nth-day"></select> ' +
-                '<select class="cron-monthly-day-of-week"></select> of every <select class="cron-monthly-month-by-week"></select> month(s)</p>']
-        },
-        yearly: {
-            tag: 'cron-yearly',
-            inputs: [ '<p><input type="radio" name="yearlyType" value="byDay"> Every <select class="cron-yearly-month"></select> <select class="cron-yearly-day"></select></p>',
-                '<p><input type="radio" name="yearlyType" value="byWeek"> The <select class="cron-yearly-nth-day"></select> ' +
-                '<select class="cron-yearly-day-of-week"></select> of <select class="cron-yearly-month-by-week"></select></p>']
+                    '<p><input type="checkbox" name="dayOfWeekFri"> Friday  <input type="checkbox" name="dayOfWeekSat"> Saturday  '+
+                    '<input type="checkbox" name="dayOfWeekSun"> Sunday</p>' ]
+            },
+            monthly: {
+                tag: 'cron-monthly',
+                inputs: [ '<p><input type="radio" name="monthlyType" value="byDay"> Day <select class="cron-monthly-day"></select> of every <select class="cron-monthly-month"></select> month(s)</p>',
+                    '<p><input type="radio" name="monthlyType" value="byWeek"> The <select class="cron-monthly-nth-day"></select> ' +
+                    '<select class="cron-monthly-day-of-week"></select> of every <select class="cron-monthly-month-by-week"></select> month(s)</p>']
+            },
+            yearly: {
+                tag: 'cron-yearly',
+                inputs: [ '<p><input type="radio" name="yearlyType" value="byDay"> Every <select class="cron-yearly-month"></select> <select class="cron-yearly-day"></select></p>',
+                    '<p><input type="radio" name="yearlyType" value="byWeek"> The <select class="cron-yearly-nth-day"></select> ' +
+                    '<select class="cron-yearly-day-of-week"></select> of <select class="cron-yearly-month-by-week"></select></p>']
+            }
         }
     };
 
-    var periodOpts=arrayToOptions(["Seconds", "Minutes", "Hourly", "Daily", "Weekly", "Monthly", "Yearly"]);
-    var secondOpts=rangeToOptions(1, 60);
-    var minuteOpts=rangeToOptions(1, 60);
-    var hourOpts=rangeToOptions(1, 24);
-    var dayOpts=rangeToOptions(1, 100);
-    var secondClockOpts=rangeToOptions(0, 59, true);
-    var minuteClockOpts=rangeToOptions(0, 59, true);
-    var hourClockOpts=rangeToOptions(0, 23, true);
-    var dayInMonthOpts=rangeToOptions(1, 31);
-    var monthOpts=arrayToOptions(["January","February","March","April","May","June","July","August","September","October","November","December"],
-                                    [1,2,3,4,5,6,7,8,9,10,11,12]);
-    var monthNumOpts=rangeToOptions(1, 12);
-    var nthWeekOpts=arrayToOptions(["First", "Second", "Third", "Forth"], [1,2,3,4]);
-    var dayOfWeekOpts=arrayToOptions(["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday", "Sunday"], ["MON","TUE","WED","THU","FRI","SAT", "SUN"]);
-
+    var optsText = $.fn.optsText = {
+        'en': {
+            periodOpts:    ["Seconds", "Minutes", "Hourly", "Daily", "Weekly", "Monthly", "Yearly"],
+            monthOpts:     ["January","February","March","April","May","June","July","August","September","October","November","December"],
+            nthWeekOpts:   ["First", "Second", "Third", "Forth"],
+            dayOfWeekOpts: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday", "Sunday"]
+        }
+    };
 
     // Convert an array of values to options to append to select input
     function arrayToOptions(opts, values) {
@@ -87,8 +82,8 @@
     }
 
     // Add input elements to UI as defined in cronInputs
-    function addInputElements($baseEl, inputObj, onFinish) {
-        $(cronInputs.container).addClass(inputObj.tag).appendTo($baseEl);
+    function addInputElements($baseEl, inputObj, language, onFinish) {
+        $(cronInputs[language].container).addClass(inputObj.tag).appendTo($baseEl);
         $baseEl.children("."+inputObj.tag).append(inputObj.inputs);
         if(typeof onFinish === "function") onFinish();
     }
@@ -161,35 +156,49 @@
         base.init = function() {
             base.options = $.extend({},$.cronBuilder.defaultOptions, options);
 
+            var periodOpts=arrayToOptions(optsText[base.options.language].periodOpts, ["Seconds", "Minutes", "Hourly", "Daily", "Weekly", "Monthly", "Yearly"]);
+            var secondOpts=rangeToOptions(1, 60);
+            var minuteOpts=rangeToOptions(1, 60);
+            var hourOpts=rangeToOptions(1, 24);
+            var dayOpts=rangeToOptions(1, 100);
+            var secondClockOpts=rangeToOptions(0, 59, true);
+            var minuteClockOpts=rangeToOptions(0, 59, true);
+            var hourClockOpts=rangeToOptions(0, 23, true);
+            var dayInMonthOpts=rangeToOptions(1, 31);
+            var monthOpts=arrayToOptions(optsText[base.options.language].monthOpts,
+                [1,2,3,4,5,6,7,8,9,10,11,12]);
+            var monthNumOpts=rangeToOptions(1, 12);
+            var nthWeekOpts=arrayToOptions(optsText[base.options.language].nthWeekOpts, [1,2,3,4]);
+            var dayOfWeekOpts=arrayToOptions(optsText[base.options.language].dayOfWeekOpts, ["MON","TUE","WED","THU","FRI","SAT", "SUN"]);
 
-            base.$el.append(cronInputs.period);
+            base.$el.append(cronInputs[base.options.language].period);
             base.$el.find("div.cron-select-period label").text(base.options.selectorLabel);
             base.$el.find("select.cron-period-select")
                 .append(periodOpts)
                 .bind("change", eventHandlers.periodSelect);
 
-            addInputElements(base.$el, cronInputs.seconds, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].seconds, base.options.language, function() {
                 base.$el.find("select.cron-seconds-select").append(secondOpts);
             });
 
-            addInputElements(base.$el, cronInputs.minutes, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].minutes, base.options.language, function() {
                 base.$el.find("select.cron-minutes-select").append(minuteOpts);
             });
 
-            addInputElements(base.$el, cronInputs.hourly, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].hourly, base.options.language, function() {
                 base.$el.find("select.cron-hourly-select").append(hourOpts);
                 base.$el.find("select.cron-hourly-hour").append(hourClockOpts);
                 base.$el.find("select.cron-hourly-minute").append(minuteClockOpts);
                 base.$el.find("select.cron-hourly-second").append(secondClockOpts);
             });
 
-            addInputElements(base.$el, cronInputs.daily, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].daily, base.options.language, function() {
                 base.$el.find("select.cron-daily-select").append(dayOpts);
             });
 
-            addInputElements(base.$el, cronInputs.weekly);
+            addInputElements(base.$el, cronInputs[base.options.language].weekly, base.options.language);
 
-            addInputElements(base.$el, cronInputs.monthly, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].monthly, base.options.language, function() {
                 base.$el.find("select.cron-monthly-day").append(dayInMonthOpts);
                 base.$el.find("select.cron-monthly-month").append(monthNumOpts);
                 base.$el.find("select.cron-monthly-nth-day").append(nthWeekOpts);
@@ -197,7 +206,7 @@
                 base.$el.find("select.cron-monthly-month-by-week").append(monthNumOpts);
             });
 
-            addInputElements(base.$el, cronInputs.yearly, function() {
+            addInputElements(base.$el, cronInputs[base.options.language].yearly, base.options.language, function() {
                 base.$el.find("select.cron-yearly-month").append(monthOpts);
                 base.$el.find("select.cron-yearly-day").append(dayInMonthOpts);
                 base.$el.find("select.cron-yearly-nth-day").append(nthWeekOpts);
@@ -206,7 +215,7 @@
             });
 
 
-            base.$el.append(cronInputs.startTime);
+            base.$el.append(cronInputs[base.options.language].startTime);
             base.$el.find("select.cron-clock-hour").append(hourClockOpts);
             base.$el.find("select.cron-clock-minute").append(minuteClockOpts);
             base.$el.find("select.cron-clock-second").append(secondClockOpts);
@@ -339,8 +348,8 @@
 
     // Plugin default options
     $.cronBuilder.defaultOptions = {
-        selectorLabel: "Select period: "
-
+        selectorLabel: "Select period: ",
+        language: "en"
     };
 
     // Plugin definition
