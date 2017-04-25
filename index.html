@@ -34,14 +34,14 @@
             footer {
                 margin-top:60px;
             }
-            
+
             footer p {
                 padding: 20px;
                 background-color: #eee;
             }
         </style>
 
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script type="text/javascript" src="src/jquery-cron-quartz.js"></script>
         <script type="text/javascript">
             $(function() {
@@ -51,14 +51,14 @@
                        $('#example1-result').text(expression);
                    }
                });
-               
+
                 $('#example2-cron').cronBuilder();
-               
+
                $('#example2-btn').click(function(){
                    var current=$('#example2-cron').data('cronBuilder').getExpression();
                    $('#example2-result').text(current);
                })
-               
+
             });
         </script>
     </head>
@@ -70,24 +70,24 @@
             </div>
         </div>
         <div class="container">
-            
+
             <h2>Introduction</h2>
-            
-            <p>Cron is a UNIX utility used to schedule a command or script on your server to run automatically. 
-            Cron expressions represent a specific time and date. Scheduling automatic tasks can be very useful 
-            to automate repetitive tasks. Cron expressions are strings comprised of 6 or 7 characters separated 
+
+            <p>Cron is a UNIX utility used to schedule a command or script on your server to run automatically.
+            Cron expressions represent a specific time and date. Scheduling automatic tasks can be very useful
+            to automate repetitive tasks. Cron expressions are strings comprised of 6 or 7 characters separated
             by white spaces, and they can be pretty confusing.</p>
-            
-            <p>The jQuery Cron Builder is a jQuery plugin that provides a clean user interface to create 
-            complex cron expressions. The cron expressions created by this tool is used for 
-            <a href="http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger" 
+
+            <p>The jQuery Cron Builder is a jQuery plugin that provides a clean user interface to create
+            complex cron expressions. The cron expressions created by this tool is used for
+            <a href="http://www.quartz-scheduler.org/documentation/quartz-1.x/tutorials/crontrigger"
             target="_blank">Quartz Job Schedular</a>.
             </p>
-            
+
             <h2>Demo</h2>
-            
-            <p>To use the plugin, simply initialize the DOM element using the cronBuilder method. In the first 
-            example, a function is automatically called when user does a change in the inputs. The function is 
+
+            <p>To use the plugin, simply initialize the DOM element using the cronBuilder method. In the first
+            example, a function is automatically called when user does a change in the inputs. The function is
             passed to the cronBuilder at initialization.
             </p>
 
@@ -110,7 +110,7 @@ $(function() {
 });</pre>
 
             <br>
-            <p>In the second example, the cron expression is only generated when the button is pressed. To get 
+            <p>In the second example, the cron expression is only generated when the button is pressed. To get
             the current cron expression, simply call the method <code>getExpression()</code>.
             </p>
             <div class="demo">
@@ -122,36 +122,36 @@ $(function() {
             </div>
             <pre>
 $(function() {
-    
-    // Initialize DOM with cron builder 
+
+    // Initialize DOM with cron builder
     $('#cron').cronBuilder();
-    
-    // Add event handler to button 
+
+    // Add event handler to button
     $('button#generate').click(function(){
-    
-        // Get current cron expression 
+
+        // Get current cron expression
         var expression=$('#cron').data('cronBuilder').getExpression();
-        
+
         // Dispaly cron expression
         $('#result').text(expression);
-    })    
+    })
 });</pre>
 
             <h2>Download</h2>
-            
+
             <p>The dev version can be downloaded <a href="https://github.com/juliacscai/jquery-cron-quartz/archive/master.zip">here</a>.</p>
-            
+
             <h2>Usage</h2>
-            
+
             <p>jQuery Cron Expression requires <a href="http://jquery.com/download/" target="_blank">jQuery 1.12.0</a> or above.</p>
-            
+
             <pre>&lt;script type="text/javascript" src="src/jquery-cron-quartz.js" &gt;&lt;/script&gt;
 &lt;link rel="stylesheet" type="text/css" href="src/jquery-cron-quartz.css"&gt;</pre>
 
         </div>
-        
+
         <footer>
             <p class="text-center">Copyright © 2016 <a href="https://github.com/juliacscai" target="_blank">Julia Cai</a>. Under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT</a> license.</p>
-    	</footer>    
+    	</footer>
     </body>
 </html>
