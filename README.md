@@ -7,3 +7,5 @@ I forked this project and add 2 features:
 
 TODO:
 Reverse parse cron express(Quartz format). Hope any one can help. :stuck_out_tongue_winking_eye:
+
+Try [DEMO](https://sotux.github.io/jquery-cron-quartz/)
