@@ -1,0 +1,8 @@
+{
+  "name": "jquery-cron-quartz",
+  "version": "1.0.0",
+  "main": "src/jquery-cron-quartz.min.js",
+  "repository": "git@github.com:jomarquez21/jquery-cron-quartz.git",
+  "author": "",
+  "license": "MIT"
+}
